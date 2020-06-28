@@ -15,7 +15,7 @@ spec:
           imagePullSecrets:
             - name: gpr-credentials
           containers:
-            - name: sparenaproxy
+            - name: sparenajob
               image: {{ image }}
               resources:
                 requests:
@@ -75,14 +75,15 @@ spec:
                 - -vault=https://vault.adeo.no
                 - -one-shot
                 - -save-token=/var/run/secrets/nais.io/vault/vault_token
-                - -cn=secret:serviceuser/data/dev/srvsparenajob:dir=/var/run/secrets/nais.io/service_user,fmt=flatten,retries=1
+                - -cn=secret:kv/prod/fss/sparenajob/teamsykmelding:dir=/var/run/secrets/nais.io/vault,fmt=flatten,retries=1
+                - -cn=secret:serviceuser/data/prod/srvsparenaproxy:dir=/var/run/secrets/nais.io/service_user,fmt=flatten,retries=1
               env:
                 - name: VAULT_AUTH_METHOD
                   value: kubernetes
                 - name: VAULT_SIDEKICK_ROLE
                   value: sparenajob
                 - name: VAULT_K8S_LOGIN_PATH
-                  value: auth/kubernetes/preprod/fss/login
+                  value: auth/kubernetes/prod/fss/login
             serviceAccount: podcreator
             serviceAccountName: podcreator
             volumes:
