@@ -84,14 +84,13 @@ spec:
                   value: sparenajob
                 - name: VAULT_K8S_LOGIN_PATH
                   value: auth/kubernetes/prod/fss/login
-              serviceAccount: default
-              serviceAccountName: default
-              volumes:
-                - name: vault-secrets
-                  emptyDir:
-                    medium: Memory
-                - name: ca-bundle
-                  configMap:
-                    defaultMode: 420
-                    name: ca-bundle-jks
-              restartPolicy: Never
+          serviceAccount: default
+          serviceAccountName: default
+          volumes:
+            - name: vault-secrets
+              emptyDir:
+                medium: Memory
+            - name: ca-bundle
+              configMap:
+                defaultMode: 420
+                name: ca-bundle-jks
