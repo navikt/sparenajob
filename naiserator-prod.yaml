@@ -26,25 +26,25 @@ spec:
                   memory: 1Gi
               volumeMounts:
                 - mountPath: /etc/ssl/certs/ca-certificates.crt
-                    name: ca-bundle
-                    subPath: ca-bundle.pem
+                  name: ca-bundle
+                  subPath: ca-bundle.pem
                 - mountPath: /etc/pki/tls/certs/ca-bundle.crt
-                    name: ca-bundle
-                    subPath: ca-bundle.pem
+                  name: ca-bundle
+                  subPath: ca-bundle.pem
                 - mountPath: /etc/ssl/ca-bundle.pem
-                    name: ca-bundle
-                    subPath: ca-bundle.pem
+                  name: ca-bundle
+                  subPath: ca-bundle.pem
                 - mountPath: /etc/pki/tls/cacert.pem
-                    name: ca-bundle
-                    subPath: ca-bundle.pem
+                  name: ca-bundle
+                  subPath: ca-bundle.pem
                 - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-                    name: ca-bundle
-                    subPath: ca-bundle.pem
+                  name: ca-bundle
+                  subPath: ca-bundle.pem
                 - mountPath: /etc/ssl/certs/java/cacerts
-                    name: ca-bundle
-                    subPath: ca-bundle.jks
+                  name: ca-bundle
+                  subPath: ca-bundle.jks
                 - mountPath: /var/run/secrets/nais.io/vault
-                    name: vault-secrets
+                  name: vault-secrets
               env:
                 - name: MOUNT_PATH_VAULT
                   value: "/postgresql/prod-fss"
