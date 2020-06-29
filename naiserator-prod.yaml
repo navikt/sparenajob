@@ -56,7 +56,7 @@ spec:
                   value: "/postgresql/prod-fss"
                 - name: SPARENAPROXY_DB_URL
                   value: "jdbc:postgresql://A01DBVL014.adeo.no:5432/sparenaproxy"
-                - name: KAFKA_BOOTSTRAP_SERVERS
+                - name: KAFKA_BOOTSTRAP_SERVERS_URL
                   value: "a01apvl00145.adeo.no:8443,a01apvl00146.adeo.no:8443,a01apvl00147.adeo.no:8443,a01apvl00148.adeo.no:8443,a01apvl00149.adeo.no:8443,a01apvl00150.adeo.no:8443"
           initContainers:
             - name: vks-init

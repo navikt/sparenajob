@@ -13,7 +13,7 @@ data class Environment(
     val sparenaproxyDBURL: String = getEnvVar("SPARENAPROXY_DB_URL"),
     val mountPathVault: String = getEnvVar("MOUNT_PATH_VAULT"),
     val databaseName: String = getEnvVar("DATABASE_NAME", "sparenaproxy"),
-    val aktiverMeldingTopic: String = getEnvVar("AKTIVER_MELDING_TOPIC", "privat-aktiver-melding")
+    val aktiverMeldingTopic: String = getEnvVar("AKTIVER_MELDING_TOPIC", "privat-aktiver-planlagtmelding")
 ) : KafkaConfig
 
 data class VaultSecrets(
