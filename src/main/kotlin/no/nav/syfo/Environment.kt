@@ -17,8 +17,8 @@ data class Environment(
 ) : KafkaConfig
 
 data class VaultSecrets(
-    val serviceuserUsername: String = getFileAsString("/secrets/serviceuser/username"),
-    val serviceuserPassword: String = getFileAsString("/secrets/serviceuser/password")
+    val serviceuserUsername: String = getFileAsString("/var/run/secrets/nais.io/service_user/username"),
+    val serviceuserPassword: String = getFileAsString("/var/run/secrets/nais.io/service_user/password")
 ) : KafkaCredentials {
     override val kafkaUsername: String = serviceuserUsername
     override val kafkaPassword: String = serviceuserPassword
