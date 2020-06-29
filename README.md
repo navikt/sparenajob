@@ -1,5 +1,5 @@
 # sparenajob
-This project contains the application code and infrastructure for sparenajob
+Sparenajob er en cronjobb som brukes for å identifisere planlagte arena-meldinger som det skal gjøres noe med. 
 ## Technologies used
 * Kotlin
 * Ktor
