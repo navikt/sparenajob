@@ -10,6 +10,7 @@ import no.nav.syfo.application.db.VaultCredentialService
 import no.nav.syfo.application.vault.RenewVaultService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.system.exitProcess
 
 val log: Logger = LoggerFactory.getLogger("no.nav.syfo.sparenajob")
 
@@ -32,4 +33,8 @@ fun main() {
     applicationState.ready = true
 
     RenewVaultService(vaultCredentialService, applicationState).startRenewTasks()
+
+    log.info("Jeg lever :D")
+
+    exitProcess(0)
 }
