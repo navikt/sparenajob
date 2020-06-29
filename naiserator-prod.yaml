@@ -51,12 +51,13 @@ spec:
                   subPath: ca-bundle.jks
                 - mountPath: /var/run/secrets/nais.io/vault
                   name: vault-secrets
+                  subPath: subpath/var/run/secrets/nais.io/vault
                 - mountPath: /var/run/secrets/nais.io/service_user
                   name: vault-secrets
                   subPath: subpath/var/run/secrets/nais.io/service_user
               env:
                 - name: VAULT_TOKEN_PATH
-                  value: "/var/run/secrets/nais.io/vault/vault_token"
+                  value: /var/run/secrets/nais.io/vault/vault_token
                 - name: MOUNT_PATH_VAULT
                   value: "/postgresql/prod-fss"
                 - name: SPARENAPROXY_DB_URL
