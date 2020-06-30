@@ -2,15 +2,22 @@ package no.nav.syfo
 
 import io.ktor.util.KtorExperimentalAPI
 import io.prometheus.client.hotspot.DefaultExports
+import kotlin.system.exitProcess
 import no.nav.syfo.application.ApplicationServer
 import no.nav.syfo.application.ApplicationState
+import no.nav.syfo.application.aktivermelding.AktiverMeldingService
+import no.nav.syfo.application.aktivermelding.kafka.AktiverMelding
+import no.nav.syfo.application.aktivermelding.kafka.AktiverMeldingKafkaProducer
 import no.nav.syfo.application.createApplicationEngine
 import no.nav.syfo.application.db.Database
 import no.nav.syfo.application.db.VaultCredentialService
+import no.nav.syfo.application.util.JacksonKafkaSerializer
 import no.nav.syfo.application.vault.RenewVaultService
+import no.nav.syfo.kafka.loadBaseConfig
+import no.nav.syfo.kafka.toProducerConfig
+import org.apache.kafka.clients.producer.KafkaProducer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import kotlin.system.exitProcess
 
 val log: Logger = LoggerFactory.getLogger("no.nav.syfo.sparenajob")
 
@@ -24,6 +31,12 @@ fun main() {
     val vaultCredentialService = VaultCredentialService()
     val database = Database(env, vaultCredentialService)
 
+    val kafkaBaseConfig = loadBaseConfig(env, vaultSecrets)
+    val producerProperties = kafkaBaseConfig.toProducerConfig(env.applicationName, valueSerializer = JacksonKafkaSerializer::class)
+    val aktiverMeldingKafkaProducer = AktiverMeldingKafkaProducer(env.aktiverMeldingTopic, KafkaProducer<String, AktiverMelding>(producerProperties))
+
+    val aktiverMeldingService = AktiverMeldingService(database, aktiverMeldingKafkaProducer)
+
     val applicationEngine = createApplicationEngine(
             env,
             applicationState
@@ -35,6 +48,8 @@ fun main() {
     RenewVaultService(vaultCredentialService, applicationState).startRenewTasks()
 
     log.info("Jeg lever :D")
+    aktiverMeldingService.start()
 
+    log.info("Ferdig!")
     exitProcess(0)
 }
