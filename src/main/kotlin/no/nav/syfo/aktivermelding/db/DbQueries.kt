@@ -1,4 +1,4 @@
-package no.nav.syfo.application.aktivermelding.db
+package no.nav.syfo.aktivermelding.db
 
 import java.sql.Connection
 import java.sql.ResultSet

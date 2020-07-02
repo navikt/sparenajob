@@ -1,4 +1,4 @@
-package no.nav.syfo.application.aktivermelding.db
+package no.nav.syfo.aktivermelding.db
 
 import java.time.LocalDate
 import java.time.OffsetDateTime

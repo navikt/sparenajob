@@ -3,9 +3,9 @@ package no.nav.syfo.aktivermelding
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.UUID
-import no.nav.syfo.application.aktivermelding.db.AKTIVITETSKRAV_8_UKER_TYPE
-import no.nav.syfo.application.aktivermelding.db.PlanlagtMeldingDbModel
-import no.nav.syfo.application.aktivermelding.db.hentPlanlagteMeldingerSomSkalAktiveres
+import no.nav.syfo.aktivermelding.db.AKTIVITETSKRAV_8_UKER_TYPE
+import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
+import no.nav.syfo.aktivermelding.db.hentPlanlagteMeldingerSomSkalAktiveres
 import no.nav.syfo.testutil.TestDB
 import no.nav.syfo.testutil.dropData
 import no.nav.syfo.testutil.lagrePlanlagtMelding

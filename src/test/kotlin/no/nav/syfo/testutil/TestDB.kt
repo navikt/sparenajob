@@ -3,7 +3,7 @@ package no.nav.syfo.testutil
 import com.opentable.db.postgres.embedded.EmbeddedPostgres
 import java.sql.Connection
 import java.sql.Timestamp
-import no.nav.syfo.application.aktivermelding.db.PlanlagtMeldingDbModel
+import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
 import no.nav.syfo.application.db.DatabaseInterface
 
 class TestDB : DatabaseInterface {

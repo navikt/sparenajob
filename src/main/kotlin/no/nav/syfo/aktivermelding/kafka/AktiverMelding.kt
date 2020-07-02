@@ -1,4 +1,4 @@
-package no.nav.syfo.application.aktivermelding.kafka
+package no.nav.syfo.aktivermelding.kafka
 
 import java.util.UUID
 
