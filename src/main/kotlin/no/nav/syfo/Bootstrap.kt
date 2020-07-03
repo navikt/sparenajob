@@ -46,9 +46,9 @@ fun main() {
 
     RenewVaultService(vaultCredentialService, applicationState).startRenewTasks()
 
-    log.info("Jeg lever :D")
+    log.info("Starter jobb for å sende planlagte meldigner til Arena")
     aktiverMeldingService.start()
 
-    log.info("Ferdig!")
+    log.info("Avslutter jobb")
     exitProcess(0)
 }
