@@ -51,12 +51,22 @@ spec:
                   subPath: ca-bundle.jks
                 - mountPath: /var/run/secrets/nais.io/vault
                   name: vault-secrets
+                  subPath: subpath/var/run/secrets/nais.io/vault
+                - mountPath: /var/run/secrets/nais.io/service_user
+                  name: vault-secrets
+                  subPath: subpath/var/run/secrets/nais.io/service_user
               env:
+                - name: NAV_TRUSTSTORE_PATH
+                  value: /etc/ssl/certs/java/cacerts
+                - name: NAV_TRUSTSTORE_PASSWORD
+                  value: changeme
+                - name: VAULT_TOKEN_PATH
+                  value: /var/run/secrets/nais.io/vault/vault_token
                 - name: MOUNT_PATH_VAULT
                   value: "/postgresql/preprod-fss"
                 - name: SPARENAPROXY_DB_URL
                   value: "jdbc:postgresql://b27dbvl016.preprod.local:5432/sparenaproxy"
-                - name: KAFKA_BOOTSTRAP_SERVERS
+                - name: KAFKA_BOOTSTRAP_SERVERS_URL
                   value: "b27apvl00045.preprod.local:8443,b27apvl00046.preprod.local:8443,b27apvl00047.preprod.local:8443"
           initContainers:
             - name: vks-init

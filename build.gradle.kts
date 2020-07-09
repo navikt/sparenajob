@@ -79,6 +79,8 @@ dependencies {
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
 
+    implementation("no.nav.helse:syfosm-common-kafka:$smCommonVersion")
+
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
 
@@ -92,6 +94,7 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
+    testImplementation("com.opentable.components:otj-pg-embedded:$postgresEmbeddedVersion")
     testImplementation("org.amshove.kluent:kluent:$kluentVersion") 
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spekVersion")
