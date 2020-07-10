@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamsykmelding
 spec:
-  schedule: "15 * * * *"
+  schedule: "16 * * * *"
   jobTemplate:
     spec:
       template:
