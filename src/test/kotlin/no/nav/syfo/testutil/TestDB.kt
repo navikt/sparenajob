@@ -1,22 +1,48 @@
 package no.nav.syfo.testutil
 
-import com.opentable.db.postgres.embedded.EmbeddedPostgres
+import io.mockk.every
+import io.mockk.mockk
+import no.nav.syfo.Environment
+import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
+import no.nav.syfo.application.db.Database
+import no.nav.syfo.application.db.DatabaseInterface
+import no.nav.syfo.application.db.VaultCredentialService
+import no.nav.syfo.application.db.VaultCredentials
+import org.testcontainers.containers.PostgreSQLContainer
 import java.sql.Connection
 import java.sql.Timestamp
-import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
-import no.nav.syfo.application.db.DatabaseInterface
 
-class TestDB : DatabaseInterface {
-    private var pg: EmbeddedPostgres? = null
-    override val connection: Connection
-        get() = pg!!.postgresDatabase.connection.apply { autoCommit = false }
+class PsqlContainer : PostgreSQLContainer<PsqlContainer>("postgres:12")
 
-    init {
-        pg = EmbeddedPostgres.start()
-    }
+class TestDB private constructor() {
+    companion object {
+        var database: DatabaseInterface
+        val env = mockk<Environment>()
+        val vaultCredentialService = mockk<VaultCredentialService>()
+        val psqlContainer: PsqlContainer = PsqlContainer()
+            .withExposedPorts(5432)
+            .withUsername("username")
+            .withPassword("password")
+            .withDatabaseName("database")
+            .withInitScript("db/dbinit-test.sql")
 
-    fun stop() {
-        pg?.close()
+        init {
+            psqlContainer.start()
+            every { vaultCredentialService.renewCredentialsTaskData = any() } returns Unit
+            every { vaultCredentialService.getNewCredentials(any(), any(), any()) } returns VaultCredentials(
+                "1",
+                "username",
+                "password"
+            )
+            every { env.mountPathVault } returns ""
+            every { env.databaseName } returns "database"
+            every { env.sparenaproxyDBURL } returns psqlContainer.jdbcUrl
+            try {
+                database = Database(env, vaultCredentialService)
+            } catch (e: Exception) {
+                database = Database(env, vaultCredentialService)
+            }
+        }
     }
 }
 
@@ -48,8 +74,9 @@ fun Connection.dropData() {
 }
 
 fun Connection.lagrePlanlagtMelding(planlagtMeldingDbModel: PlanlagtMeldingDbModel) {
-    this.prepareStatement(
-        """
+    use { connection ->
+        connection.prepareStatement(
+            """
             INSERT INTO planlagt_melding(
                 id,
                 fnr,
@@ -61,16 +88,31 @@ fun Connection.lagrePlanlagtMelding(planlagtMeldingDbModel: PlanlagtMeldingDbMod
                 sendt)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
              """
-    ).use {
-        it.setObject(1, planlagtMeldingDbModel.id)
-        it.setString(2, planlagtMeldingDbModel.fnr)
-        it.setObject(3, planlagtMeldingDbModel.startdato)
-        it.setString(4, planlagtMeldingDbModel.type)
-        it.setTimestamp(5, Timestamp.from(planlagtMeldingDbModel.opprettet.toInstant()))
-        it.setTimestamp(6, Timestamp.from(planlagtMeldingDbModel.sendes.toInstant()))
-        it.setTimestamp(7, if (planlagtMeldingDbModel.avbrutt != null) { Timestamp.from(planlagtMeldingDbModel.avbrutt?.toInstant()) } else { null })
-        it.setTimestamp(8, if (planlagtMeldingDbModel.sendt != null) { Timestamp.from(planlagtMeldingDbModel.sendt?.toInstant()) } else { null })
-        it.execute()
+        ).use {
+            it.setObject(1, planlagtMeldingDbModel.id)
+            it.setString(2, planlagtMeldingDbModel.fnr)
+            it.setObject(3, planlagtMeldingDbModel.startdato)
+            it.setString(4, planlagtMeldingDbModel.type)
+            it.setTimestamp(5, Timestamp.from(planlagtMeldingDbModel.opprettet.toInstant()))
+            it.setTimestamp(6, Timestamp.from(planlagtMeldingDbModel.sendes.toInstant()))
+            it.setTimestamp(
+                7,
+                if (planlagtMeldingDbModel.avbrutt != null) {
+                    Timestamp.from(planlagtMeldingDbModel.avbrutt?.toInstant())
+                } else {
+                    null
+                }
+            )
+            it.setTimestamp(
+                8,
+                if (planlagtMeldingDbModel.sendt != null) {
+                    Timestamp.from(planlagtMeldingDbModel.sendt?.toInstant())
+                } else {
+                    null
+                }
+            )
+            it.execute()
+        }
+        connection.commit()
     }
-    this.commit()
 }

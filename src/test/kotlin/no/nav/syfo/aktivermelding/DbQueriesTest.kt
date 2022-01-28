@@ -1,52 +1,62 @@
 package no.nav.syfo.aktivermelding
 
-import java.time.OffsetDateTime
-import java.util.UUID
+import io.kotest.core.spec.style.FunSpec
 import no.nav.syfo.aktivermelding.db.hentPlanlagteMeldingerSomSkalAktiveres
 import no.nav.syfo.testutil.TestDB
 import no.nav.syfo.testutil.dropData
 import no.nav.syfo.testutil.lagPlanlagtMelding
 import no.nav.syfo.testutil.lagrePlanlagtMelding
 import no.nav.syfo.testutil.setUp
-import org.amshove.kluent.shouldEqual
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.amshove.kluent.shouldBeEqualTo
+import java.time.OffsetDateTime
+import java.util.UUID
 
-object DbQueriesTest : Spek({
+object DbQueriesTest : FunSpec({
     val planlagtMeldingSkalSendesId = UUID.randomUUID()
     val planlagtMeldingSendtId = UUID.randomUUID()
     val planlagtMeldingAvbruttId = UUID.randomUUID()
-    val testDb = TestDB()
+    val testDb = TestDB.database
 
-    beforeGroup {
+    beforeSpec {
         testDb.connection.setUp()
     }
 
-    afterEachTest {
+    afterTest {
         testDb.connection.dropData()
     }
 
-    afterGroup {
-        testDb.stop()
-    }
-
-    describe("Test av henting av planlagte meldinger som skal aktiveres") {
-        it("Henter kun UUID for melding som skal aktiveres") {
-            testDb.connection.lagrePlanlagtMelding(lagPlanlagtMelding(id = planlagtMeldingSendtId, sendt = OffsetDateTime.now().minusMinutes(30)))
+    context("Test av henting av planlagte meldinger som skal aktiveres") {
+        test("Henter kun UUID for melding som skal aktiveres") {
+            testDb.connection.lagrePlanlagtMelding(
+                lagPlanlagtMelding(
+                    id = planlagtMeldingSendtId,
+                    sendt = OffsetDateTime.now().minusMinutes(30)
+                )
+            )
             testDb.connection.lagrePlanlagtMelding(lagPlanlagtMelding(id = planlagtMeldingSkalSendesId))
-            testDb.connection.lagrePlanlagtMelding(lagPlanlagtMelding(id = planlagtMeldingAvbruttId, avbrutt = OffsetDateTime.now().minusDays(15)))
+            testDb.connection.lagrePlanlagtMelding(
+                lagPlanlagtMelding(
+                    id = planlagtMeldingAvbruttId,
+                    avbrutt = OffsetDateTime.now().minusDays(15)
+                )
+            )
 
             val planlagteMeldinger = testDb.hentPlanlagteMeldingerSomSkalAktiveres(OffsetDateTime.now())
 
-            planlagteMeldinger.size shouldEqual 1
-            planlagteMeldinger[0].id shouldEqual planlagtMeldingSkalSendesId
+            planlagteMeldinger.size shouldBeEqualTo 1
+            planlagteMeldinger[0].id shouldBeEqualTo planlagtMeldingSkalSendesId
         }
-        it("Henter ikke UUID for melding som skal aktiveres ennå") {
-            testDb.connection.lagrePlanlagtMelding(lagPlanlagtMelding(id = planlagtMeldingSkalSendesId, sendes = OffsetDateTime.now().plusDays(2)))
+        test("Henter ikke UUID for melding som skal aktiveres ennå") {
+            testDb.connection.lagrePlanlagtMelding(
+                lagPlanlagtMelding(
+                    id = planlagtMeldingSkalSendesId,
+                    sendes = OffsetDateTime.now().plusDays(2)
+                )
+            )
 
             val planlagteMeldinger = testDb.hentPlanlagteMeldingerSomSkalAktiveres(OffsetDateTime.now())
 
-            planlagteMeldinger.size shouldEqual 0
+            planlagteMeldinger.size shouldBeEqualTo 0
         }
     }
 })

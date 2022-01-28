@@ -2,9 +2,7 @@ package no.nav.syfo
 
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.util.KtorExperimentalAPI
 import io.prometheus.client.hotspot.DefaultExports
-import kotlin.system.exitProcess
 import no.nav.syfo.aktivermelding.AktiverMeldingService
 import no.nav.syfo.aktivermelding.kafka.AktiverMelding
 import no.nav.syfo.aktivermelding.kafka.AktiverMeldingKafkaProducer
@@ -19,10 +17,10 @@ import no.nav.syfo.kafka.toProducerConfig
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.system.exitProcess
 
 val log: Logger = LoggerFactory.getLogger("no.nav.syfo.sparenajob")
 
-@KtorExperimentalAPI
 fun main() {
     val env = Environment()
     val vaultSecrets = VaultSecrets()
