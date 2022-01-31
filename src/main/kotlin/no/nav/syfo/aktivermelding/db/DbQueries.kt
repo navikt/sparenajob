@@ -1,5 +1,7 @@
 package no.nav.syfo.aktivermelding.db
 
+import no.nav.syfo.application.db.DatabaseInterface
+import no.nav.syfo.application.db.toList
 import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.Timestamp
@@ -7,8 +9,6 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.UUID
-import no.nav.syfo.application.db.DatabaseInterface
-import no.nav.syfo.application.db.toList
 
 fun DatabaseInterface.hentPlanlagteMeldingerSomSkalAktiveres(now: OffsetDateTime): List<PlanlagtMeldingDbModel> {
     connection.use { connection ->
