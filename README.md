@@ -7,7 +7,7 @@ Sparenajob er en cronjobb som brukes for å identifisere planlagte arena-melding
 
 ## Getting started
 ### Getting github-package-registry packages NAV-IT
-Some packages used in this repo is uploaded to the Github Package Registry which requires authentication. It can, for example, be solved like this in Gradle:
+Some packages used in this repo is uploaded to the GitHub Package Registry which requires authentication. It can, for example, be solved like this in Gradle:
 ```
 val githubUser: String by project
 val githubPassword: String by project
@@ -48,10 +48,10 @@ To build locally and run the integration tests you can simply run `./gradlew sha
 `gradlew.bat shadowJar`
 
 #### Creating a docker image
-Creating a docker image should be as simple as `docker build -t "no.nav.syfo" .`
+Creating a docker image should be as simple as `docker build -t sparenajob .`
 
 #### Running a docker image
-`docker run --rm -it -p 8080:8080 "no.nav.syfo"`
+`docker run --rm -it -p 8080:8080 sparenajob`
 
 ### Upgrading the gradle wrapper
 Find the newest version of gradle here: https://gradle.org/releases/ Then run this command:
