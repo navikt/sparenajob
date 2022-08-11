@@ -37,6 +37,7 @@ class TestDB private constructor() {
             every { env.mountPathVault } returns ""
             every { env.databaseName } returns "database"
             every { env.sparenaproxyDBURL } returns psqlContainer.jdbcUrl
+            every { env.cluster } returns "local"
             try {
                 database = Database(env, vaultCredentialService)
             } catch (e: Exception) {
