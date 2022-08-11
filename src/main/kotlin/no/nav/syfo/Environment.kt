@@ -7,7 +7,7 @@ data class Environment(
     val mountPathVault: String = getEnvVar("MOUNT_PATH_VAULT"),
     val databaseName: String = getEnvVar("DATABASE_NAME", "sparenaproxy"),
     val aktiverMeldingTopic: String = "teamsykmelding.privat-aktiver-planlagtmelding",
-    val cluster: String = getEnvVar("NAIS_CLUSTER_NAME", "local")
+    val cluster: String = getEnvVar("NAIS_CLUSTER_NAME")
 )
 
 fun getEnvVar(varName: String, defaultValue: String? = null) =
