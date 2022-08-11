@@ -21,7 +21,9 @@ class Database(private val env: Environment, private val vaultCredentialService:
         get() = dataSource.connection
 
     init {
-        runFlywayMigrations()
+        if(env.cluster == "local"){
+            runFlywayMigrations()
+        }
 
         val initialCredentials = vaultCredentialService.getNewCredentials(
             mountPath = env.mountPathVault,
