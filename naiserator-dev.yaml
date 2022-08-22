@@ -27,5 +27,5 @@ spec:
   envFrom:
     - secret: google-sql-sparenaproxy-sparenaproxy-sparenajob-4a490ebc
   env:
-    name: CLOUD_SQL_INSTANCE
-    value: teamsykmelding-dev-1d34:europe-north1:sparenaproxy-db-instance
+    - name: CLOUD_SQL_INSTANCE
+      value: teamsykmelding-dev-1d34:europe-north1:sparenaproxy-db-instance
