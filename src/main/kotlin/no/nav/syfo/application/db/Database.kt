@@ -63,7 +63,9 @@ class Database(private val env: Environment, retries: Long = 30, sleepTime: Long
             throw RuntimeException("Could not connect to DB")
         }
         dataSource = tempDatasource
-        runFlywayMigrations()
+        if (testDb) {
+            runFlywayMigrations()
+        }
     }
 
     private fun runFlywayMigrations() = Flyway.configure().run {
