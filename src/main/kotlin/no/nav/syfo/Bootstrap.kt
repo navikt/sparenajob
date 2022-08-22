@@ -9,9 +9,7 @@ import no.nav.syfo.aktivermelding.kafka.AktiverMeldingKafkaProducer
 import no.nav.syfo.application.ApplicationServer
 import no.nav.syfo.application.ApplicationState
 import no.nav.syfo.application.db.Database
-import no.nav.syfo.application.db.VaultCredentialService
 import no.nav.syfo.application.util.JacksonKafkaSerializer
-import no.nav.syfo.application.vault.RenewVaultService
 import no.nav.syfo.kafka.aiven.KafkaUtils
 import no.nav.syfo.kafka.toProducerConfig
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -26,8 +24,7 @@ fun main() {
     DefaultExports.initialize()
     val applicationState = ApplicationState()
 
-    val vaultCredentialService = VaultCredentialService()
-    val database = Database(env, vaultCredentialService)
+    val database = Database(env)
 
     val producerProperties = KafkaUtils.getAivenKafkaConfig().toProducerConfig(env.applicationName, valueSerializer = JacksonKafkaSerializer::class)
     val aktiverMeldingKafkaProducer = AktiverMeldingKafkaProducer(env.aktiverMeldingTopic, KafkaProducer<String, AktiverMelding>(producerProperties))
@@ -40,10 +37,9 @@ fun main() {
     applicationServer.start()
     applicationState.ready = true
 
-    RenewVaultService(vaultCredentialService, applicationState).startRenewTasks()
-
-    log.info("Starter jobb for å sende planlagte meldinger til Arena")
-    aktiverMeldingService.start()
+    // log.info("Starter jobb for å sende planlagte meldinger til Arena")
+    // aktiverMeldingService.start()
+    log.info("Gjør ingenting")
 
     log.info("Avslutter jobb")
     exitProcess(0)

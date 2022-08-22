@@ -9,7 +9,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import java.time.OffsetDateTime
 import java.util.UUID
 
-object AktiverMeldingServiceTest : FunSpec({
+class AktiverMeldingServiceTest : FunSpec({
     val planlagtMelding4uker = UUID.randomUUID()
     val planlagtMelding8uker = UUID.randomUUID()
     val planlagtMelding39uker = UUID.randomUUID()

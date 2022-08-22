@@ -6,8 +6,6 @@ import no.nav.syfo.Environment
 import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
 import no.nav.syfo.application.db.Database
 import no.nav.syfo.application.db.DatabaseInterface
-import no.nav.syfo.application.db.VaultCredentialService
-import no.nav.syfo.application.db.VaultCredentials
 import org.testcontainers.containers.PostgreSQLContainer
 import java.sql.Connection
 import java.sql.Timestamp
@@ -18,7 +16,6 @@ class TestDB private constructor() {
     companion object {
         var database: DatabaseInterface
         val env = mockk<Environment>()
-        val vaultCredentialService = mockk<VaultCredentialService>()
         val psqlContainer: PsqlContainer = PsqlContainer()
             .withExposedPorts(5432)
             .withUsername("username")
@@ -28,20 +25,15 @@ class TestDB private constructor() {
 
         init {
             psqlContainer.start()
-            every { vaultCredentialService.renewCredentialsTaskData = any() } returns Unit
-            every { vaultCredentialService.getNewCredentials(any(), any(), any()) } returns VaultCredentials(
-                "1",
-                "username",
-                "password"
-            )
-            every { env.mountPathVault } returns ""
-            every { env.databaseName } returns "database"
-            every { env.sparenaproxyDBURL } returns psqlContainer.jdbcUrl
-            every { env.cluster } returns "local"
+            every { env.databaseUsername } returns "username"
+            every { env.databasePassword } returns "password"
+            every { env.dbName } returns "database"
+            every { env.cloudSqlInstance } returns "instance"
+            every { env.jdbcUrl() } returns psqlContainer.jdbcUrl
             try {
-                database = Database(env, vaultCredentialService)
+                database = Database(env, testDb = true)
             } catch (e: Exception) {
-                database = Database(env, vaultCredentialService)
+                database = Database(env, testDb = true)
             }
         }
     }
