@@ -16,9 +16,9 @@ val smCommonVersion = "1.f132f2b"
 val mockkVersion = "1.12.5"
 val testContainerVersion = "1.17.3"
 val postgresVersion = "42.4.1"
-val flywayVersion = "8.5.10"
+val flywayVersion = "9.0.4"
 val hikariVersion = "5.0.1"
-val vaultJavaDriveVersion = "3.1.0"
+val googlePostgresVersion = "1.6.3"
 val kotlinVersion = "1.7.10"
 val kotestVersion = "5.4.1"
 
@@ -71,7 +71,7 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgresVersion")
     implementation("com.zaxxer:HikariCP:$hikariVersion")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
-    implementation("com.bettercloud:vault-java-driver:$vaultJavaDriveVersion")
+    implementation("com.google.cloud.sql:postgres-socket-factory:$googlePostgresVersion")
 
     implementation("com.fasterxml.jackson.module:jackson-module-jaxb-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")

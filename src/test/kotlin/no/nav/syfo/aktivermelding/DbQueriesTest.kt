@@ -11,7 +11,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import java.time.OffsetDateTime
 import java.util.UUID
 
-object DbQueriesTest : FunSpec({
+class DbQueriesTest : FunSpec({
     val planlagtMeldingSkalSendesId = UUID.randomUUID()
     val planlagtMeldingSendtId = UUID.randomUUID()
     val planlagtMeldingAvbruttId = UUID.randomUUID()

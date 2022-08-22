@@ -18,10 +18,14 @@ spec:
   restartPolicy: Never
   kafka:
     pool: nav-dev
-  vault:
-    enabled: true
+  gcp:
+    permissions:
+      - resource:
+          apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+          kind: Project
+        role: roles/cloudsql.client
+  envFrom:
+    - secret: google-sql-sparenaproxy-sparenaproxy-sparenajob-4a490ebc
   env:
-    - name: MOUNT_PATH_VAULT
-      value: "/postgresql/preprod-fss"
-    - name: SPARENAPROXY_DB_URL
-      value: "jdbc:postgresql://b27dbvl016.preprod.local:5432/sparenaproxy"
+    - name: CLOUD_SQL_INSTANCE
+      value: teamsykmelding-dev-1d34:europe-north1:sparenaproxy-db-instance
