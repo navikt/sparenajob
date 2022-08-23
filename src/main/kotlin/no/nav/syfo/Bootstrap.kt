@@ -37,9 +37,8 @@ fun main() {
     applicationServer.start()
     applicationState.ready = true
 
-    // log.info("Starter jobb for å sende planlagte meldinger til Arena")
-    // aktiverMeldingService.start()
-    log.info("Gjør ingenting")
+    log.info("Starter jobb for å sende planlagte meldinger til Arena")
+    aktiverMeldingService.start()
 
     log.info("Avslutter jobb")
     exitProcess(0)
