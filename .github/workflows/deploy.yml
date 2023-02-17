@@ -10,7 +10,7 @@ jobs:
   monitor:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle-jdk16@master
         env:
@@ -74,7 +74,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           docker build --tag ${IMAGE} .
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
   deploy-dev:
     name: Deploy to dev
@@ -82,7 +82,7 @@ jobs:
     needs: [ snyk-test, build ]
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
       - name: Deploy to dev
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -95,7 +95,7 @@ jobs:
     needs: [ snyk-test, build, deploy-dev ]
     steps:
       - name: Checkout code
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
       - name: Deploy to Prod
         uses: nais/deploy/actions/deploy@master
         env:
