@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: sparenajob-db
+  name: sparenaproxy-db-instance
   namespace: teamsykmelding
 spec:
   egress:
