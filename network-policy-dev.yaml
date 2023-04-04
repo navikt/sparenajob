@@ -7,7 +7,7 @@ spec:
   egress:
     - to:
         - ipBlock:
-            cidr: 34.88.104.112/32
+            cidr: 34.88.248.64/32
   podSelector:
     matchLabels:
       app: sparenajob
