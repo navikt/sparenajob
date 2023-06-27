@@ -1,10 +1,10 @@
 package no.nav.syfo.testutil
 
-import no.nav.syfo.aktivermelding.db.AKTIVITETSKRAV_8_UKER_TYPE
-import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.UUID
+import no.nav.syfo.aktivermelding.db.AKTIVITETSKRAV_8_UKER_TYPE
+import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
 
 fun lagPlanlagtMelding(
     id: UUID,

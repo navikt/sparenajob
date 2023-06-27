@@ -2,13 +2,13 @@ package no.nav.syfo.testutil
 
 import io.mockk.every
 import io.mockk.mockk
+import java.sql.Connection
+import java.sql.Timestamp
 import no.nav.syfo.Environment
 import no.nav.syfo.aktivermelding.db.PlanlagtMeldingDbModel
 import no.nav.syfo.application.db.Database
 import no.nav.syfo.application.db.DatabaseInterface
 import org.testcontainers.containers.PostgreSQLContainer
-import java.sql.Connection
-import java.sql.Timestamp
 
 class PsqlContainer : PostgreSQLContainer<PsqlContainer>("postgres:12")
 
@@ -16,12 +16,13 @@ class TestDB private constructor() {
     companion object {
         var database: DatabaseInterface
         val env = mockk<Environment>()
-        val psqlContainer: PsqlContainer = PsqlContainer()
-            .withExposedPorts(5432)
-            .withUsername("username")
-            .withPassword("password")
-            .withDatabaseName("database")
-            .withInitScript("db/dbinit-test.sql")
+        val psqlContainer: PsqlContainer =
+            PsqlContainer()
+                .withExposedPorts(5432)
+                .withUsername("username")
+                .withPassword("password")
+                .withDatabaseName("database")
+                .withInitScript("db/dbinit-test.sql")
 
         init {
             psqlContainer.start()
@@ -41,8 +42,9 @@ class TestDB private constructor() {
 
 fun Connection.setUp() {
     use { connection ->
-        connection.prepareStatement(
-            """
+        connection
+            .prepareStatement(
+                """
                 CREATE TABLE planlagt_melding(
                     id UUID PRIMARY KEY,
                     fnr VARCHAR NOT NULL,
@@ -54,7 +56,8 @@ fun Connection.setUp() {
                     sendt timestamptz
                 );
                 """
-        ).executeUpdate()
+            )
+            .executeUpdate()
         connection.commit()
     }
 }
@@ -68,8 +71,9 @@ fun Connection.dropData() {
 
 fun Connection.lagrePlanlagtMelding(planlagtMeldingDbModel: PlanlagtMeldingDbModel) {
     use { connection ->
-        connection.prepareStatement(
-            """
+        connection
+            .prepareStatement(
+                """
             INSERT INTO planlagt_melding(
                 id,
                 fnr,
@@ -81,31 +85,32 @@ fun Connection.lagrePlanlagtMelding(planlagtMeldingDbModel: PlanlagtMeldingDbMod
                 sendt)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
              """
-        ).use {
-            it.setObject(1, planlagtMeldingDbModel.id)
-            it.setString(2, planlagtMeldingDbModel.fnr)
-            it.setObject(3, planlagtMeldingDbModel.startdato)
-            it.setString(4, planlagtMeldingDbModel.type)
-            it.setTimestamp(5, Timestamp.from(planlagtMeldingDbModel.opprettet.toInstant()))
-            it.setTimestamp(6, Timestamp.from(planlagtMeldingDbModel.sendes.toInstant()))
-            it.setTimestamp(
-                7,
-                if (planlagtMeldingDbModel.avbrutt != null) {
-                    Timestamp.from(planlagtMeldingDbModel.avbrutt?.toInstant())
-                } else {
-                    null
-                }
             )
-            it.setTimestamp(
-                8,
-                if (planlagtMeldingDbModel.sendt != null) {
-                    Timestamp.from(planlagtMeldingDbModel.sendt?.toInstant())
-                } else {
-                    null
-                }
-            )
-            it.execute()
-        }
+            .use {
+                it.setObject(1, planlagtMeldingDbModel.id)
+                it.setString(2, planlagtMeldingDbModel.fnr)
+                it.setObject(3, planlagtMeldingDbModel.startdato)
+                it.setString(4, planlagtMeldingDbModel.type)
+                it.setTimestamp(5, Timestamp.from(planlagtMeldingDbModel.opprettet.toInstant()))
+                it.setTimestamp(6, Timestamp.from(planlagtMeldingDbModel.sendes.toInstant()))
+                it.setTimestamp(
+                    7,
+                    if (planlagtMeldingDbModel.avbrutt != null) {
+                        Timestamp.from(planlagtMeldingDbModel.avbrutt?.toInstant())
+                    } else {
+                        null
+                    }
+                )
+                it.setTimestamp(
+                    8,
+                    if (planlagtMeldingDbModel.sendt != null) {
+                        Timestamp.from(planlagtMeldingDbModel.sendt?.toInstant())
+                    } else {
+                        null
+                    }
+                )
+                it.execute()
+            }
         connection.commit()
     }
 }

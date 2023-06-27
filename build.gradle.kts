@@ -8,34 +8,32 @@ version = "1.0.0"
 val coroutinesVersion = "1.6.4"
 val jacksonVersion = "2.15.0"
 val kluentVersion = "1.72"
-val ktorVersion = "2.3.0"
+val ktorVersion = "2.3.1"
 val logbackVersion = "1.4.6"
-val logstashEncoderVersion = "7.3"
+val logstashEncoderVersion = "7.4"
 val prometheusVersion = "0.16.0"
-val smCommonVersion = "1.0.1"
+val smCommonVersion = "1.0.9"
 val mockkVersion = "1.12.5"
 val testContainerVersion = "1.17.3"
 val postgresVersion = "42.6.0"
 val flywayVersion = "9.0.4"
 val hikariVersion = "5.0.1"
-val googlePostgresVersion = "1.6.3"
-val kotlinVersion = "1.8.21"
+val googlePostgresVersion = "1.12.0"
+val kotlinVersion = "1.8.22"
 val kotestVersion = "5.4.1"
+val ktfmtVersion = "0.44"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "no.nav.syfo.BootstrapKt"
 }
 
 plugins {
-    id("org.jmailen.kotlinter") version "3.10.0"
-    kotlin("jvm") version "1.8.21"
+    id("com.diffplug.spotless") version "6.19.0"
+    kotlin("jvm") version "1.8.22"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("org.cyclonedx.bom") version "1.7.4"
 }
 
-buildscript {
-    dependencies {
-    }
-}
 
 val githubUser: String by project
 val githubPassword: String by project
@@ -110,7 +108,10 @@ tasks {
         testLogging.showStandardStreams = true
     }
 
-    "check" {
-        dependsOn("formatKotlin")
+    spotless {
+        kotlin { ktfmt(ktfmtVersion).kotlinlangStyle() }
+        check {
+            dependsOn("spotlessApply")
+        }
     }
 }

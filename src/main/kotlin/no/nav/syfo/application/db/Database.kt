@@ -3,17 +3,21 @@ package no.nav.syfo.application.db
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import com.zaxxer.hikari.pool.HikariPool
-import no.nav.syfo.Environment
-import no.nav.syfo.log
-import org.flywaydb.core.Flyway
 import java.net.ConnectException
 import java.net.SocketException
 import java.sql.Connection
 import java.sql.ResultSet
 import java.util.Properties
+import no.nav.syfo.Environment
+import no.nav.syfo.log
+import org.flywaydb.core.Flyway
 
-class Database(private val env: Environment, retries: Long = 30, sleepTime: Long = 10_000, testDb: Boolean = false) :
-    DatabaseInterface {
+class Database(
+    private val env: Environment,
+    retries: Long = 30,
+    sleepTime: Long = 10_000,
+    testDb: Boolean = false
+) : DatabaseInterface {
     private val dataSource: HikariDataSource
 
     override val connection: Connection
@@ -26,26 +30,29 @@ class Database(private val env: Environment, retries: Long = 30, sleepTime: Long
         while (!connected && current++ < retries) {
             log.info("trying to connect to db, current try $current")
             try {
-                val config = HikariConfig().apply {
-                    jdbcUrl = env.jdbcUrl()
-                    username = env.databaseUsername
-                    password = env.databasePassword
-                    maximumPoolSize = 10
-                    minimumIdle = 3
-                    idleTimeout = 10000
-                    maxLifetime = 300000
-                    isAutoCommit = false
-                    transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-                    validate()
-                }
+                val config =
+                    HikariConfig().apply {
+                        jdbcUrl = env.jdbcUrl()
+                        username = env.databaseUsername
+                        password = env.databasePassword
+                        maximumPoolSize = 10
+                        minimumIdle = 3
+                        idleTimeout = 10000
+                        maxLifetime = 300000
+                        isAutoCommit = false
+                        transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+                        validate()
+                    }
                 if (!testDb) {
-                    val connProps = Properties().apply {
-                        setProperty("socketFactory", "com.google.cloud.sql.postgres.SocketFactory")
-                        setProperty("cloudSqlInstance", env.cloudSqlInstance)
-                    }
-                    config.apply {
-                        dataSourceProperties = connProps
-                    }
+                    val connProps =
+                        Properties().apply {
+                            setProperty(
+                                "socketFactory",
+                                "com.google.cloud.sql.postgres.SocketFactory"
+                            )
+                            setProperty("cloudSqlInstance", env.cloudSqlInstance)
+                        }
+                    config.apply { dataSourceProperties = connProps }
                 }
                 tempDatasource = HikariDataSource(config)
                 connected = true
@@ -68,18 +75,20 @@ class Database(private val env: Environment, retries: Long = 30, sleepTime: Long
         }
     }
 
-    private fun runFlywayMigrations() = Flyway.configure().run {
-        locations("db")
-        dataSource(env.jdbcUrl(), env.databaseUsername, env.databasePassword)
-        load().migrate()
-    }
+    private fun runFlywayMigrations() =
+        Flyway.configure().run {
+            locations("db")
+            dataSource(env.jdbcUrl(), env.databaseUsername, env.databasePassword)
+            load().migrate()
+        }
 }
 
-fun <T> ResultSet.toList(mapper: ResultSet.() -> T) = mutableListOf<T>().apply {
-    while (next()) {
-        add(mapper())
+fun <T> ResultSet.toList(mapper: ResultSet.() -> T) =
+    mutableListOf<T>().apply {
+        while (next()) {
+            add(mapper())
+        }
     }
-}
 
 interface DatabaseInterface {
     val connection: Connection

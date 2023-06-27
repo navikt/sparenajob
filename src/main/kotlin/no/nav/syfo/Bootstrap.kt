@@ -3,6 +3,7 @@ package no.nav.syfo
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.prometheus.client.hotspot.DefaultExports
+import kotlin.system.exitProcess
 import no.nav.syfo.aktivermelding.AktiverMeldingService
 import no.nav.syfo.aktivermelding.kafka.AktiverMelding
 import no.nav.syfo.aktivermelding.kafka.AktiverMeldingKafkaProducer
@@ -15,7 +16,6 @@ import no.nav.syfo.kafka.toProducerConfig
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import kotlin.system.exitProcess
 
 val log: Logger = LoggerFactory.getLogger("no.nav.syfo.sparenajob")
 
@@ -26,8 +26,14 @@ fun main() {
 
     val database = Database(env)
 
-    val producerProperties = KafkaUtils.getAivenKafkaConfig().toProducerConfig(env.applicationName, valueSerializer = JacksonKafkaSerializer::class)
-    val aktiverMeldingKafkaProducer = AktiverMeldingKafkaProducer(env.aktiverMeldingTopic, KafkaProducer<String, AktiverMelding>(producerProperties))
+    val producerProperties =
+        KafkaUtils.getAivenKafkaConfig()
+            .toProducerConfig(env.applicationName, valueSerializer = JacksonKafkaSerializer::class)
+    val aktiverMeldingKafkaProducer =
+        AktiverMeldingKafkaProducer(
+            env.aktiverMeldingTopic,
+            KafkaProducer<String, AktiverMelding>(producerProperties)
+        )
 
     val aktiverMeldingService = AktiverMeldingService(database, aktiverMeldingKafkaProducer)
 
