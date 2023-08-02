@@ -27,7 +27,7 @@ fun main() {
     val database = Database(env)
 
     val producerProperties =
-        KafkaUtils.getAivenKafkaConfig()
+        KafkaUtils.getAivenKafkaConfig("aktiver-melding-producer")
             .toProducerConfig(env.applicationName, valueSerializer = JacksonKafkaSerializer::class)
     val aktiverMeldingKafkaProducer =
         AktiverMeldingKafkaProducer(
