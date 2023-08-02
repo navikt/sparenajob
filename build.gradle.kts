@@ -20,7 +20,7 @@ val flywayVersion = "9.0.4"
 val hikariVersion = "5.0.1"
 val googlePostgresVersion = "1.12.0"
 val kotlinVersion = "1.9.0"
-val kotestVersion = "5.4.1"
+val kotestVersion = "5.6.2"
 val ktfmtVersion = "0.44"
 val jvmVersion = "17"
 
