@@ -13,13 +13,13 @@ val logbackVersion = "1.5.6"
 val logstashEncoderVersion = "7.4"
 val prometheusVersion = "0.16.0"
 val smCommonVersion = "2.0.8"
-val mockkVersion = "1.13.10"
+val mockkVersion = "1.13.11"
 val testContainerVersion = "1.19.8"
 val postgresVersion = "42.7.3"
-val flywayVersion = "10.12.0"
+val flywayVersion = "10.13.0"
 val hikariVersion = "5.1.0"
-val googlePostgresVersion = "1.18.0"
-val kotlinVersion = "1.9.24"
+val googlePostgresVersion = "1.18.1"
+val kotlinVersion = "2.0.0"
 val kotestVersion = "5.9.0"
 val ktfmtVersion = "0.44"
 val jvmVersion = "17"
@@ -31,7 +31,7 @@ tasks.withType<Jar> {
 
 plugins {
     id("com.diffplug.spotless") version "6.25.0"
-    kotlin("jvm") version "1.9.24"
+    kotlin("jvm") version "2.0.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
