@@ -6,24 +6,24 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val coroutinesVersion = "1.8.1"
-val jacksonVersion = "2.17.1"
+val jacksonVersion = "2.17.2"
 val kluentVersion = "1.73"
 val ktorVersion = "2.3.12"
 val logbackVersion = "1.5.6"
-val logstashEncoderVersion = "7.4"
+val logstashEncoderVersion = "8.0"
 val prometheusVersion = "0.16.0"
 val smCommonVersion = "2.0.8"
-val mockkVersion = "1.13.11"
-val testContainerVersion = "1.19.8"
+val mockkVersion = "1.13.12"
+val testContainerVersion = "1.20.1"
 val postgresVersion = "42.7.3"
-val flywayVersion = "10.15.0"
+val flywayVersion = "10.17.0"
 val hikariVersion = "5.1.0"
-val googlePostgresVersion = "1.19.0"
-val kotlinVersion = "2.0.0"
+val googlePostgresVersion = "1.19.1"
+val kotlinVersion = "2.0.10"
 val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
 val jvmVersion = "17"
-val snappyJavaVersion = "1.1.10.5"
+val snappyJavaVersion = "1.1.10.6"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "no.nav.syfo.BootstrapKt"
@@ -31,7 +31,7 @@ tasks.withType<Jar> {
 
 plugins {
     id("com.diffplug.spotless") version "6.25.0"
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "2.0.10"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
