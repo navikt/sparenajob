@@ -10,7 +10,7 @@ Sparenajob er en cronjobb som brukes for å identifisere planlagte arena-melding
 
 ## Requirements
 
-* JDK 17
+* JDK 21
 * Docker
 
 ## Getting started
