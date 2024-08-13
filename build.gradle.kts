@@ -1,6 +1,4 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 group = "no.nav.syfo"
 version = "1.0.0"
@@ -21,24 +19,33 @@ val googlePostgresVersion = "1.19.1"
 val kotlinVersion = "2.0.10"
 val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
-val jvmVersion = "21"
 val snappyJavaVersion = "1.1.10.6"
 val kafkaVersion = "3.8.0"
+val commonsCompressVersion = "1.27.0"
+val jvmVersion = JvmTarget.JVM_21
 
-tasks.withType<Jar> {
-    manifest.attributes["Main-Class"] = "no.nav.syfo.BootstrapKt"
-}
 
 plugins {
+    id("application")
     id("com.diffplug.spotless") version "6.25.0"
     kotlin("jvm") version "2.0.10"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.0"
+}
+
+application {
+    mainClass.set("no.nav.syfo.BootstrapKt")
 }
 
 repositories {
     mavenCentral()
     maven {
         url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = jvmVersion
     }
 }
 
@@ -75,38 +82,41 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
     testImplementation("org.testcontainers:postgresql:$testContainerVersion")
-    testImplementation("org.amshove.kluent:kluent:$kluentVersion") 
+    constraints {
+        testImplementation("org.apache.commons:commons-compress:$commonsCompressVersion") {
+            because("overrides vulnerable dependency from org.testcontainers:postgresql")
+        }
+    }
+
+    testImplementation("org.amshove.kluent:kluent:$kluentVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.testcontainers:kafka:$testContainerVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
-        exclude(group = "org.eclipse.jetty") 
+        exclude(group = "org.eclipse.jetty")
     }
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 
 tasks {
 
-    create("printVersion") {
-        println(project.version)
-    }
-
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = jvmVersion
-    }
-
-    withType<ShadowJar> {
-mergeServiceFiles {
-     setPath("META-INF/services/org.flywaydb.core.extensibility.Plugin")
- }
-        transform(ServiceFileTransformer::class.java) {
-            setPath("META-INF/cxf")
-            include("bus-extensions.txt")
+    shadowJar {
+        mergeServiceFiles {
+            setPath("META-INF/services/org.flywaydb.core.extensibility.Plugin")
+        }
+        archiveBaseName.set("app")
+        archiveClassifier.set("")
+        isZip64 = true
+        manifest {
+            attributes(
+                mapOf(
+                    "Main-Class" to "no.nav.syfo.BootstrapKt",
+                ),
+            )
         }
     }
 
-    withType<Test> {
-        useJUnitPlatform {
-        }
+    test {
+        useJUnitPlatform {}
         testLogging.showStandardStreams = true
     }
 
