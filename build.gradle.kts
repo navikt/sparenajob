@@ -21,7 +21,7 @@ val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
 val snappyJavaVersion = "1.1.10.6"
 val kafkaVersion = "3.8.0"
-val commonsCompressVersion = "1.27.0"
+val commonsCompressVersion = "1.27.1"
 val jvmVersion = JvmTarget.JVM_21
 
 
