@@ -4,19 +4,19 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val coroutinesVersion = "1.9.0"
-val jacksonVersion = "2.18.0"
+val jacksonVersion = "2.18.1"
 val kluentVersion = "1.73"
 val ktorVersion = "3.0.0"
-val logbackVersion = "1.5.8"
+val logbackVersion = "1.5.12"
 val logstashEncoderVersion = "8.0"
 val prometheusVersion = "0.16.0"
-val mockkVersion = "1.13.12"
-val testContainerVersion = "1.20.2"
+val mockkVersion = "1.13.13"
+val testContainerVersion = "1.20.3"
 val postgresVersion = "42.7.4"
-val flywayVersion = "10.18.2"
+val flywayVersion = "10.20.1"
 val hikariVersion = "6.0.0"
 val googlePostgresVersion = "1.21.0"
-val kotlinVersion = "2.0.20"
+val kotlinVersion = "2.0.21"
 val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
 val snappyJavaVersion = "1.1.10.7"
@@ -28,8 +28,8 @@ val jvmVersion = JvmTarget.JVM_21
 plugins {
     id("application")
     id("com.diffplug.spotless") version "6.25.0"
-    kotlin("jvm") version "2.0.20"
-    id("com.gradleup.shadow") version "8.3.3"
+    kotlin("jvm") version "2.0.21"
+    id("com.gradleup.shadow") version "8.3.4"
 }
 
 application {
