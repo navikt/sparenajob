@@ -15,8 +15,8 @@ val testContainerVersion = "1.20.4"
 val postgresVersion = "42.7.5"
 val flywayVersion = "11.2.0"
 val hikariVersion = "6.2.1"
-val googlePostgresVersion = "1.22.0"
-val kotlinVersion = "2.1.0"
+val googlePostgresVersion = "1.23.0"
+val kotlinVersion = "2.1.10"
 val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
 val kafkaVersion = "3.9.0"
@@ -27,7 +27,7 @@ val jvmVersion = JvmTarget.JVM_21
 plugins {
     id("application")
     id("com.diffplug.spotless") version "7.0.2"
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
     id("com.gradleup.shadow") version "8.3.5"
 }
 
