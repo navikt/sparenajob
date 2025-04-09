@@ -3,20 +3,20 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 group = "no.nav.syfo"
 version = "1.0.0"
 
-val coroutinesVersion = "1.10.1"
+val coroutinesVersion = "1.10.2"
 val jacksonVersion = "2.18.3"
 val kluentVersion = "1.73"
-val ktorVersion = "3.1.1"
-val logbackVersion = "1.5.17"
-val logstashEncoderVersion = "8.0"
+val ktorVersion = "3.1.2"
+val logbackVersion = "1.5.18"
+val logstashEncoderVersion = "8.1"
 val prometheusVersion = "0.16.0"
 val mockkVersion = "1.13.17"
 val testContainerVersion = "1.20.6"
 val postgresVersion = "42.7.5"
-val flywayVersion = "11.4.0"
-val hikariVersion = "6.2.1"
-val googlePostgresVersion = "1.23.1"
-val kotlinVersion = "2.1.10"
+val flywayVersion = "11.6.0"
+val hikariVersion = "6.3.0"
+val googlePostgresVersion = "1.24.1"
+val kotlinVersion = "2.1.20"
 val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
 val kafkaVersion = "3.9.0"
@@ -26,8 +26,8 @@ val jvmVersion = JvmTarget.JVM_21
 
 plugins {
     id("application")
-    id("com.diffplug.spotless") version "7.0.2"
-    kotlin("jvm") version "2.1.10"
+    id("com.diffplug.spotless") version "7.0.3"
+    kotlin("jvm") version "2.1.20"
     id("com.gradleup.shadow") version "8.3.6"
 }
 
