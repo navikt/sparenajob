@@ -10,7 +10,7 @@ spec:
   schedule: "*/5 * * * *"
   resources:
     requests:
-      cpu: 400m
+      cpu: 50m
       memory: 768Mi
     limits:
       cpu: 500m
