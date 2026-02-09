@@ -7,11 +7,11 @@ val coroutinesVersion = "1.10.2"
 val jacksonVersion = "2.20.2"
 val kluentVersion = "1.73"
 val ktorVersion = "3.4.0"
-val logbackVersion = "1.5.18"
+val logbackVersion = "1.5.26"
 val logstashEncoderVersion = "8.1"
 val prometheusVersion = "0.16.0"
 val mockkVersion = "1.14.4"
-val testContainerVersion = "1.21.3"
+val testcontainerVersion = "2.0.1"
 val postgresVersion = "42.7.7"
 val flywayVersion = "11.10.1"
 val hikariVersion = "6.3.0"
@@ -20,7 +20,6 @@ val kotlinVersion = "2.2.0"
 val kotestVersion = "5.9.1"
 val ktfmtVersion = "0.44"
 val kafkaVersion = "3.9.1"
-val commonsCompressVersion = "1.27.1"
 val jvmVersion = JvmTarget.JVM_21
 
 
@@ -59,7 +58,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
 
-    implementation("org.apache.kafka:kafka_2.12:$kafkaVersion")
+    implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
@@ -75,16 +74,11 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
-    testImplementation("org.testcontainers:postgresql:$testContainerVersion")
-    constraints {
-        testImplementation("org.apache.commons:commons-compress:$commonsCompressVersion") {
-            because("overrides vulnerable dependency from org.testcontainers:postgresql")
-        }
-    }
+    testImplementation("org.testcontainers:testcontainers-postgresql:$testcontainerVersion")
 
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
-    testImplementation("org.testcontainers:kafka:$testContainerVersion")
+    testImplementation("org.testcontainers:testcontainers-kafka:$testcontainerVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
