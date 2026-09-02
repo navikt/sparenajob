@@ -99,7 +99,7 @@ fun Connection.lagrePlanlagtMelding(planlagtMeldingDbModel: PlanlagtMeldingDbMod
                         Timestamp.from(planlagtMeldingDbModel.avbrutt?.toInstant())
                     } else {
                         null
-                    }
+                    },
                 )
                 it.setTimestamp(
                     8,
@@ -107,7 +107,7 @@ fun Connection.lagrePlanlagtMelding(planlagtMeldingDbModel: PlanlagtMeldingDbMod
                         Timestamp.from(planlagtMeldingDbModel.sendt?.toInstant())
                     } else {
                         null
-                    }
+                    },
                 )
                 it.execute()
             }

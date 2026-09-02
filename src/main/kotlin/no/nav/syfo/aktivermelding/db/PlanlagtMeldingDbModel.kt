@@ -16,5 +16,5 @@ data class PlanlagtMeldingDbModel(
     val opprettet: OffsetDateTime,
     val sendes: OffsetDateTime,
     val avbrutt: OffsetDateTime? = null,
-    val sendt: OffsetDateTime? = null
+    val sendt: OffsetDateTime? = null,
 )

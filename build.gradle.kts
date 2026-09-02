@@ -4,29 +4,30 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val coroutinesVersion = "1.10.2"
-val jacksonVersion = "2.20.2"
+val jacksonVersion = "3.2.2"
 val kluentVersion = "1.73"
-val ktorVersion = "3.4.0"
-val logbackVersion = "1.5.26"
-val logstashEncoderVersion = "8.1"
+val ktorVersion = "3.5.2"
+val logbackVersion = "1.6.3"
+val logstashEncoderVersion = "9.0"
 val prometheusVersion = "0.16.0"
 val mockkVersion = "1.14.4"
-val testcontainerVersion = "2.0.3"
+val testcontainerVersion = "2.0.5"
 val postgresVersion = "42.7.7"
-val flywayVersion = "11.10.1"
-val hikariVersion = "6.3.0"
+val flywayVersion = "13.4.0"
+val hikariVersion = "7.1.0"
 val googlePostgresVersion = "1.25.1"
-val kotlinVersion = "2.2.0"
+val kotlinVersion = "2.4.10"
 val kotestVersion = "5.9.1"
-val ktfmtVersion = "0.44"
-val kafkaVersion = "3.9.1"
-val jvmVersion = JvmTarget.JVM_21
+val ktfmtVersion = "0.56"
+val kafkaVersion = "4.3.1"
+
+val jvmVersion = JvmTarget.JVM_25
 
 
 plugins {
     id("application")
-    id("com.diffplug.spotless") version "7.0.4"
-    kotlin("jvm") version "2.2.0"
+    id("com.diffplug.spotless") version "8.10.1"
+    kotlin("jvm") version "2.4.10"
     id("com.gradleup.shadow") version "8.3.8"
 }
 
@@ -49,8 +50,6 @@ kotlin {
 
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$coroutinesVersion")
     implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
@@ -69,10 +68,9 @@ dependencies {
     implementation("org.flywaydb:flyway-database-postgresql:$flywayVersion")
     implementation("com.google.cloud.sql:postgres-socket-factory:$googlePostgresVersion")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-jaxb-annotations:$jacksonVersion")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation("tools.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("tools.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
+    implementation("tools.jackson.module:jackson-module-jaxb-annotations:$jacksonVersion")
 
     testImplementation("org.testcontainers:testcontainers-postgresql:$testcontainerVersion")
 

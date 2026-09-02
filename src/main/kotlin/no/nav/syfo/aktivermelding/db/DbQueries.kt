@@ -38,5 +38,5 @@ fun ResultSet.toPlanlagtMeldingDbModel(): PlanlagtMeldingDbModel =
         opprettet = getTimestamp("opprettet").toInstant().atOffset(ZoneOffset.UTC),
         sendes = getTimestamp("sendes").toInstant().atOffset(ZoneOffset.UTC),
         avbrutt = getTimestamp("avbrutt")?.toInstant()?.atOffset(ZoneOffset.UTC),
-        sendt = getTimestamp("sendt")?.toInstant()?.atOffset(ZoneOffset.UTC)
+        sendt = getTimestamp("sendt")?.toInstant()?.atOffset(ZoneOffset.UTC),
     )

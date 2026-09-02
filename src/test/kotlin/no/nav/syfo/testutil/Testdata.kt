@@ -13,7 +13,7 @@ fun lagPlanlagtMelding(
     opprettet: OffsetDateTime = OffsetDateTime.now().minusWeeks(7),
     sendes: OffsetDateTime = OffsetDateTime.now().minusHours(5),
     sendt: OffsetDateTime? = null,
-    avbrutt: OffsetDateTime? = null
+    avbrutt: OffsetDateTime? = null,
 ): PlanlagtMeldingDbModel {
     return PlanlagtMeldingDbModel(
         id = id,
@@ -23,6 +23,6 @@ fun lagPlanlagtMelding(
         opprettet = opprettet,
         sendes = sendes,
         avbrutt = avbrutt,
-        sendt = sendt
+        sendt = sendt,
     )
 }

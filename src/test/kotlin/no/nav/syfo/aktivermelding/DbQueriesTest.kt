@@ -27,7 +27,7 @@ class DbQueriesTest :
                 testDb.connection.lagrePlanlagtMelding(
                     lagPlanlagtMelding(
                         id = planlagtMeldingSendtId,
-                        sendt = OffsetDateTime.now().minusMinutes(30)
+                        sendt = OffsetDateTime.now().minusMinutes(30),
                     )
                 )
                 testDb.connection.lagrePlanlagtMelding(
@@ -36,7 +36,7 @@ class DbQueriesTest :
                 testDb.connection.lagrePlanlagtMelding(
                     lagPlanlagtMelding(
                         id = planlagtMeldingAvbruttId,
-                        avbrutt = OffsetDateTime.now().minusDays(15)
+                        avbrutt = OffsetDateTime.now().minusDays(15),
                     )
                 )
 
@@ -50,7 +50,7 @@ class DbQueriesTest :
                 testDb.connection.lagrePlanlagtMelding(
                     lagPlanlagtMelding(
                         id = planlagtMeldingSkalSendesId,
-                        sendes = OffsetDateTime.now().plusDays(2)
+                        sendes = OffsetDateTime.now().plusDays(2),
                     )
                 )
 
