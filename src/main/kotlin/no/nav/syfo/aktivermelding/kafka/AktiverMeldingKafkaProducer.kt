@@ -6,7 +6,7 @@ import org.apache.kafka.clients.producer.ProducerRecord
 
 class AktiverMeldingKafkaProducer(
     private val aktiverMeldingTopic: String,
-    private val kafkaProducer: KafkaProducer<String, AktiverMelding>
+    private val kafkaProducer: KafkaProducer<String, AktiverMelding>,
 ) {
 
     fun publishToKafka(aktiverMelding: AktiverMelding) {

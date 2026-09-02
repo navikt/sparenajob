@@ -16,7 +16,7 @@ class Database(
     private val env: Environment,
     retries: Long = 30,
     sleepTime: Long = 10_000,
-    testDb: Boolean = false
+    testDb: Boolean = false,
 ) : DatabaseInterface {
     private val dataSource: HikariDataSource
 
@@ -48,7 +48,7 @@ class Database(
                         Properties().apply {
                             setProperty(
                                 "socketFactory",
-                                "com.google.cloud.sql.postgres.SocketFactory"
+                                "com.google.cloud.sql.postgres.SocketFactory",
                             )
                             setProperty("cloudSqlInstance", env.cloudSqlInstance)
                         }

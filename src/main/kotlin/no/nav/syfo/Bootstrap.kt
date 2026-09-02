@@ -32,7 +32,7 @@ fun main() {
     val aktiverMeldingKafkaProducer =
         AktiverMeldingKafkaProducer(
             env.aktiverMeldingTopic,
-            KafkaProducer<String, AktiverMelding>(producerProperties)
+            KafkaProducer<String, AktiverMelding>(producerProperties),
         )
 
     val aktiverMeldingService = AktiverMeldingService(database, aktiverMeldingKafkaProducer)

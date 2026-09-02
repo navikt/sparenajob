@@ -9,7 +9,7 @@ data class Environment(
     val dbHost: String = getEnvVar("NAIS_DATABASE_SPARENAJOB_HOST"),
     val dbPort: String = getEnvVar("NAIS_DATABASE_SPARENAJOB_PORT"),
     val dbName: String = getEnvVar("NAIS_DATABASE_SPARENAJOB_DATABASE"),
-    val cloudSqlInstance: String = getEnvVar("CLOUD_SQL_INSTANCE")
+    val cloudSqlInstance: String = getEnvVar("CLOUD_SQL_INSTANCE"),
 ) {
     fun jdbcUrl(): String {
         return "jdbc:postgresql://$dbHost:$dbPort/$dbName"
@@ -18,4 +18,5 @@ data class Environment(
 
 fun getEnvVar(varName: String, defaultValue: String? = null) =
     System.getenv(varName)
-        ?: defaultValue ?: throw RuntimeException("Missing required variable \"$varName\"")
+        ?: defaultValue
+        ?: throw RuntimeException("Missing required variable \"$varName\"")

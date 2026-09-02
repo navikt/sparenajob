@@ -10,7 +10,7 @@ import no.nav.syfo.log
 
 class AktiverMeldingService(
     private val database: DatabaseInterface,
-    private val aktiverMeldingKafkaProducer: AktiverMeldingKafkaProducer
+    private val aktiverMeldingKafkaProducer: AktiverMeldingKafkaProducer,
 ) {
     fun start() {
         val aktiverMeldinger =

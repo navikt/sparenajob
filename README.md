@@ -10,7 +10,7 @@ Sparenajob er en cronjobb som brukes for å identifisere planlagte arena-melding
 
 ## Requirements
 
-* JDK 21
+* JDK 25
 * Docker
 
 ## Getting started
@@ -25,8 +25,8 @@ Creating a docker image should be as simple as `docker build -t sparenajob .`
 #### Running a docker image
 `docker run --rm -it -p 8080:8080 sparenajob`
 
-### Upgrading the gradle wrapper
-Find the newest version of gradle here: https://gradle.org/releases/ Then run this command:
+### Upgrading the Gradle wrapper
+Find the newest version of Gradle here: https://gradle.org/releases/ Then run this command:
 
 ```./gradlew wrapper --gradle-version $gradleVersjon```
 

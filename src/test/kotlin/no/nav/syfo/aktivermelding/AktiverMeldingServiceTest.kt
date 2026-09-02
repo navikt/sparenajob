@@ -23,20 +23,20 @@ class AktiverMeldingServiceTest :
                             id = planlagtMelding8uker,
                             type = AKTIVITETSKRAV_8_UKER_TYPE,
                             opprettet = OffsetDateTime.now().minusNanos(20),
-                            sendes = OffsetDateTime.now().minusDays(20)
+                            sendes = OffsetDateTime.now().minusDays(20),
                         ),
                         lagPlanlagtMelding(
                             id = planlagtMelding39uker,
                             type = BREV_39_UKER_TYPE,
                             opprettet = OffsetDateTime.now().minusNanos(10),
-                            sendes = OffsetDateTime.now().minusDays(10)
+                            sendes = OffsetDateTime.now().minusDays(10),
                         ),
                         lagPlanlagtMelding(
                             id = planlagtMelding4uker,
                             type = BREV_4_UKER_TYPE,
                             opprettet = OffsetDateTime.now().minusNanos(30),
-                            sendes = OffsetDateTime.now().minusDays(30)
-                        )
+                            sendes = OffsetDateTime.now().minusDays(30),
+                        ),
                     )
 
                 val filtrerteMeldinger =
@@ -52,14 +52,14 @@ class AktiverMeldingServiceTest :
                             id = planlagtMelding8uker,
                             type = AKTIVITETSKRAV_8_UKER_TYPE,
                             opprettet = OffsetDateTime.now().minusNanos(20),
-                            sendes = OffsetDateTime.now().minusDays(20)
+                            sendes = OffsetDateTime.now().minusDays(20),
                         ),
                         lagPlanlagtMelding(
                             id = planlagtMelding39uker,
                             type = BREV_39_UKER_TYPE,
                             opprettet = OffsetDateTime.now().minusNanos(10),
-                            sendes = OffsetDateTime.now().minusDays(10)
-                        )
+                            sendes = OffsetDateTime.now().minusDays(10),
+                        ),
                     )
 
                 val filtrerteMeldinger =
@@ -75,14 +75,14 @@ class AktiverMeldingServiceTest :
                             id = planlagtMelding8uker,
                             fnr = "fnr1",
                             type = AKTIVITETSKRAV_8_UKER_TYPE,
-                            sendes = OffsetDateTime.now().minusMinutes(20)
+                            sendes = OffsetDateTime.now().minusMinutes(20),
                         ),
                         lagPlanlagtMelding(
                             id = planlagtMelding39uker,
                             fnr = "fnr2",
                             type = BREV_39_UKER_TYPE,
-                            sendes = OffsetDateTime.now().minusMinutes(10)
-                        )
+                            sendes = OffsetDateTime.now().minusMinutes(10),
+                        ),
                     )
 
                 val filtrerteMeldinger =
